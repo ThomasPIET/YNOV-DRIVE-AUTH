@@ -16,7 +16,6 @@ AuthUser.init({
     email: {
         type: DataTypes.STRING(255),
         allowNull: false,
-        unique: true,
         unique: {
             name: 'unique_user_email',
             msg: 'Email already in use',
