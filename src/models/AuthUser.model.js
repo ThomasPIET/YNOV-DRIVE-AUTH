@@ -1,9 +1,7 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
-export class AuthUser extends Model {};
-
-AuthUser.init({
+export const AuthUserModel = sequelize.define('AuthUser', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
