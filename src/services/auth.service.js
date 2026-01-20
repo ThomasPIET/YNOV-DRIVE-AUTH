@@ -30,7 +30,7 @@ export const authService = {
                 email: user.email,
             };
 
-            const response = await axios.post(`${env.auth.serviceBaseUrl}:${env.auth.servicePort}/api/user`, {
+            const response = await axios.post(`${env.dataService.baseUrl}:${env.dataService.port}/api/user`, {
                 // headers: {
                 //     Authorization: req.headers.authorization || '',
                 // },
