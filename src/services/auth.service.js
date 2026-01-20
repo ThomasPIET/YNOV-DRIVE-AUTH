@@ -38,12 +38,6 @@ export const authService = {
                 email: user.email,
                 name: name,
             });
-            console.log('Response from user service:', response.data);
-            if (response.status >= 400) {
-                const error = new Error('Erreur lors de la création du profil utilisateur');
-                error.status = response.status;
-                throw error;
-            }
 
             const accessToken = generateAccessToken(payload);
 
