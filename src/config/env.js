@@ -11,6 +11,11 @@ export const env = {
         port: process.env.DATA_SERVICE_PORT,
     },
     authServiceToken: process.env.AUTH_SERVICE_TOKEN,
+    mailService: {
+        token: process.env.SMTP_SERVICE_TOKEN,
+        baseUrl: process.env.SMTP_SERVICE_BASEURL,
+        port: process.env.SMTP_SERVICE_PORT,
+    },
     jwt: {
         secret: process.env.JWT_SECRET,
         expiresIn: process.env.JWT_EXPIRES_IN,

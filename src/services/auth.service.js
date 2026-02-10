@@ -3,6 +3,7 @@ import { authUserRepository } from '../repositories/authUser.repository.js';
 import { hashPassword, comparePassword } from '../utils/password.js';
 import { generateAccessToken } from '../utils/jwt.js';
 import { sequelize } from '../config/database.js';
+import { queueMail } from './mail.service.js';
 import axios from 'axios';
 
 export const authService = {
@@ -30,7 +31,8 @@ export const authService = {
                 email: user.email,
             };
 
-            const response = await axios.post(`${env.dataService.baseUrl}:${env.dataService.port}/api/user`, {
+            // Enregistrement de l'utilisateur dans le service de données
+            const dataResult = await axios.post(`${env.dataService.baseUrl}:${env.dataService.port}/api/user`, {
                 // headers: {
                 //     Authorization: req.headers.authorization || '',
                 // },
@@ -38,6 +40,21 @@ export const authService = {
                 email: user.email,
                 name: name,
             });
+            if (!dataResult) {
+                throw new Error('Erreur lors de la création de l\'utilisateur dans le service de données.');
+            }
+
+            // Envoi de l'email de bienvenue
+            const mailResult = await queueMail({
+                emails: [email],
+                subject: 'Bienvenue sur Ynov Drive !',
+                body_template: 'welcome.html',
+                data: { name },
+                scheduled_at: new Date(),
+            })
+            if (!mailResult) {
+                throw new Error('Erreur lors de l\'envoi de l\'email de bienvenue.');
+            }
 
             const accessToken = generateAccessToken(payload);
 
