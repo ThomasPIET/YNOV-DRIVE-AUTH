@@ -31,12 +31,13 @@ export const authService = {
             };
 
             const response = await axios.post(`${env.dataService.baseUrl}:${env.dataService.port}/api/user`, {
-                // headers: {
-                //     Authorization: req.headers.authorization || '',
-                // },
                 id: user.id,
                 email: user.email,
                 name: name,
+            }, {
+                headers: {
+                    'x-service-token': env.authServiceToken,
+                },
             });
 
             const accessToken = generateAccessToken(payload);
