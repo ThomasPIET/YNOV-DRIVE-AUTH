@@ -39,6 +39,10 @@ export const authService = {
                 id: user.id,
                 email: user.email,
                 name: name,
+            }, {
+                headers: {
+                    'x-service-token': env.authServiceToken,
+                },
             });
             if (!dataResult) {
                 throw new Error('Erreur lors de la création de l\'utilisateur dans le service de données.');
