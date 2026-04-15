@@ -74,14 +74,14 @@ export const authService = {
         let user = await authUserRepository.findByEmail(email);
 
         if (!user) {
-            const error = new Error('Identifiants invalides');
+            const error = new Error('Identifiants invalides - utilisateur non trouvé');
             error.status = 401;
             throw error;
         }
 
         const isValid = await comparePassword(password, user.password_hash);
         if (!isValid) {
-            const error = new Error('Identifiants invalides');
+            const error = new Error('Identifiants invalides - mot de passe incorrect');
             error.status = 401;
             throw error;
         }

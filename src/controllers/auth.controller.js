@@ -19,7 +19,7 @@ export const authController = {
     register: async (req, res, next) => {
         try {
             const { error, value } = registerSchema.validate(req.body);
-
+            console.log('Validation result:', { error, value });
             if (error) {
                 console.log('Validation error:', error.message);
                 return res.status(400).json({ message: error.message });
